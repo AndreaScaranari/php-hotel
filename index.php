@@ -1,6 +1,17 @@
 <?php
     include 'data/data.php';
-    // var_dump($hotels);
+
+    $filtered_hotels = [];
+
+    if (!isset($_GET['parking'])) {
+        $filtered_hotels = $hotels;
+    } else {
+    foreach ($hotels as $hotel) {
+        if($hotel['parking'] == $_GET['parking']) {
+            $filtered_hotels[] = $hotel;
+        }
+    }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -24,37 +35,53 @@
 
     <main>
         <div class="container">
-        <!-- Tabella -->
-            <table class="table table-striped table-hover text-center">
-                <!-- Intestazione tabella -->
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Parking</th>
-                        <th>Vote</th>
-                        <th>Distance to Center</th>
-                    </tr>
-                </thead>
-                <!-- Corpo tabella -->
-                <tbody>
-                    <?php foreach ($hotels as $hotel) :?>
-                    <tr>
-                        <td><?= $hotel['name'] ?></td>
-                        <td><?= $hotel['description'] ?></td>
-                        <td><?php echo $hotel['parking'] ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>' ?></td>
-                        <td><?php  for($i = 1; $i <= 5; $i++){
-                            if ($i <= $hotel['vote']){
-                                echo '<i class="fa-solid fa-star text-warning"></i>';
-                            } else {
-                                echo '<i class="fa-regular fa-star text-warning"></i>';
-                            }
-                        } ?></td>
-                        <td><?= $hotel['distance_to_center'] ?></td>
-                    </tr>
-                    <?php endforeach ;?>
-                </tbody>
-            </table>
+
+            <section id="form-section" class="py-3">
+                <form action="" method="GET" class="d-flex align-items-center gap-3">
+                    <div class="checkbox-area">
+                        <p><b>Parking Preferences</b></p>
+                        <input type="checkbox" name="parking" value="true" id="yes-parking">
+                        <label for="yes-parking">Yes</label>
+                        <input type="checkbox" name="parking" value="" id="no-parking">
+                        <label for="no-parking">Nope</label>
+                    </div>
+                    <button class="btn btn-primary">Search!</button>
+                </form>
+            </section>
+
+            <section id="table-section">
+            <!-- Tabella -->
+                <table class="table table-striped table-hover text-center">
+                    <!-- Intestazione tabella -->
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Parking</th>
+                            <th>Vote</th>
+                            <th>Distance to Center</th>
+                        </tr>
+                    </thead>
+                    <!-- Corpo tabella -->
+                    <tbody>
+                        <?php foreach ($filtered_hotels as $hotel) :?>
+                        <tr>
+                            <td><?= $hotel['name'] ?></td>
+                            <td><?= $hotel['description'] ?></td>
+                            <td><?php echo $hotel['parking'] ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>' ?></td>
+                            <td><?php  for($i = 1; $i <= 5; $i++){
+                                if ($i <= $hotel['vote']){
+                                    echo '<i class="fa-solid fa-star text-warning"></i>';
+                                } else {
+                                    echo '<i class="fa-regular fa-star text-warning"></i>';
+                                }
+                            } ?></td>
+                            <td><?= $hotel['distance_to_center'] ?></td>
+                        </tr>
+                        <?php endforeach ;?>
+                    </tbody>
+                </table>
+            </section>
         </div>
     </main>
 </body>

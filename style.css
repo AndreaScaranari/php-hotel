@@ -1,3 +1,7 @@
 header {
     background-color: #ECECEC;
 }
+
+p {
+    margin: 0;
+}
