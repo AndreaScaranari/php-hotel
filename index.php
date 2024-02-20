@@ -43,7 +43,13 @@
                         <td><?= $hotel['name'] ?></td>
                         <td><?= $hotel['description'] ?></td>
                         <td><?php echo $hotel['parking'] ? '<i class="fa-solid fa-circle-check text-success"></i>' : '<i class="fa-solid fa-circle-xmark text-danger"></i>' ?></td>
-                        <td><?= $hotel['vote'] ?></td>
+                        <td><?php  for($i = 1; $i <= 5; $i++){
+                            if ($i <= $hotel['vote']){
+                                echo '<i class="fa-solid fa-star text-warning"></i>';
+                            } else {
+                                echo '<i class="fa-regular fa-star text-warning"></i>';
+                            }
+                        } ?></td>
                         <td><?= $hotel['distance_to_center'] ?></td>
                     </tr>
                     <?php endforeach ;?>
