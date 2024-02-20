@@ -3,7 +3,7 @@
 
     $filtered_hotels = [];
 
-    if (!isset($_GET['parking'])) {
+    if (!isset($_GET['parking']) || $_GET['parking'] == 'reset') {
         $filtered_hotels = $hotels;
     } else {
     foreach ($hotels as $hotel) {
@@ -36,15 +36,31 @@
     <main>
         <div class="container">
 
-            <section id="form-section" class="py-3">
-                <form action="" method="GET" class="d-flex align-items-center gap-3">
-                    <div class="checkbox-area">
+            <section id="form-section" class="py-3 text-center">
+                <form action="" method="GET" class="d-flex justify-content-center align-items-center gap-3 row-cols-4">
+                    <!-- checkbox -->
+                    <div class="radio-area">
                         <p><b>Parking Preferences</b></p>
-                        <input type="checkbox" name="parking" value="true" id="yes-parking">
+                        <input type="radio" name="parking" value="reset" id="reset-parking" checked>
+                        <label for="yes-parking">Standard</label>
+                        <input type="radio" name="parking" value="true" id="yes-parking">
                         <label for="yes-parking">Yes</label>
-                        <input type="checkbox" name="parking" value="" id="no-parking">
+                        <input type="radio" name="parking" value="" id="no-parking">
                         <label for="no-parking">Nope</label>
                     </div>
+                    <!-- select -->
+                    <div class="select-area">
+                        <label for="vote"><b>Vote Preferences</b></label>
+                        <select name="vote" id="vote" class="form-select">
+                            <option value="">---</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <!-- bottone -->
                     <button class="btn btn-primary">Search!</button>
                 </form>
             </section>
