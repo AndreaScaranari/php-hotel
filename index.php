@@ -2,16 +2,21 @@
     include 'data/data.php';
 
     $p_needs = $_GET['parking'] ?? 'reset';
+    $v_needs = $_GET['vote'] ?? 'reset';
     $filtered_hotels = [];
 
-    if ($p_needs == 'reset') {
+    if ($p_needs == 'reset' && $v_needs == 'reset') {
         $filtered_hotels = $hotels;
     } else {
     foreach ($hotels as $hotel) {
-        if($hotel['parking'] == $p_needs) {
+        if($hotel['parking'] == $p_needs && $hotel['vote'] >= $v_needs) {
+            $filtered_hotels[] = $hotel;
+        } elseif($hotel['parking'] == $p_needs && $v_needs == 'reset') {
+            $filtered_hotels[] = $hotel;
+        } elseif ($hotel['vote'] >= $v_needs && $p_needs == 'reset') {
             $filtered_hotels[] = $hotel;
         }
-    }
+    } 
     }
 ?>
 
@@ -53,7 +58,7 @@
                     <div class="select-area">
                         <label for="vote"><b>Vote Preferences</b></label>
                         <select name="vote" id="vote" class="form-select">
-                            <option value="">---</option>
+                            <option value="reset">---</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
