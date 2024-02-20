@@ -1,13 +1,14 @@
 <?php
     include 'data/data.php';
 
+    $p_needs = $_GET['parking'] ?? 'reset';
     $filtered_hotels = [];
 
-    if (!isset($_GET['parking']) || $_GET['parking'] == 'reset') {
+    if ($p_needs == 'reset') {
         $filtered_hotels = $hotels;
     } else {
     foreach ($hotels as $hotel) {
-        if($hotel['parking'] == $_GET['parking']) {
+        if($hotel['parking'] == $p_needs) {
             $filtered_hotels[] = $hotel;
         }
     }
