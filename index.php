@@ -98,7 +98,7 @@
                                     echo '<i class="fa-regular fa-star text-warning"></i>';
                                 }
                             } ?></td>
-                            <td><?= $hotel['distance_to_center'] ?></td>
+                            <td><?= $hotel['distance_to_center'] ?> km</td>
                         </tr>
                         <?php endforeach ;?>
                     </tbody>
